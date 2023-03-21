@@ -135,12 +135,16 @@
 
 let form = document.getElementById('addForm');
 let itemList = document.getElementById('items');
+let filter = document.getElementById('filter');
 
 // Form Submit event.....
 form.addEventListener('submit',addItem);
 
 // Form delete item event....
 itemList.addEventListener('click',removeItem);
+
+// Filter items event....
+filter.addEventListener('keyup',filterItems);
 
 // Add Item...
 function addItem(e){
@@ -174,4 +178,20 @@ function removeItem(e){
             itemList.removeChild(li);
         }
     }
+}
+
+function filterItems(e){
+    let text = e.target.value.toLowerCase();
+
+    let items = itemList.getElementsByTagName('li');
+
+    Array.from(items).forEach(function(item){
+        let itemName = item.firstChild.textContent;
+        if(itemName.toLowerCase().indexOf(text)!==-1){
+            item.style.display='block';
+        }
+        else{
+            item.style.display='none';
+        }
+    })
 }
