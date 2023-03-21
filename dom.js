@@ -16,12 +16,12 @@
 // Get element by ID.....
 
 //console.log(document.getElementById('header-title'));
-let headerTitle = document.getElementById('header-title');
+// let headerTitle = document.getElementById('header-title');
 //console.log(headerTitle);
 //headerTitle.innerText="Hello";
 //headerTitle.textContent="Hello";
 //headerTitle.innerHTML = '<h3>Good Job</h3>';
-headerTitle.style.border='solid 2px #000';
+//headerTitle.style.border='solid 2px #000';
 
 //Get elemenst by class......
 
@@ -67,13 +67,111 @@ headerTitle.style.border='solid 2px #000';
 
 // QuerySelectorAll.....
 
-let titles = document.querySelectorAll('.title');
-titles[0].textContent='Hello';
+// let titles = document.querySelectorAll('.title');
+// titles[0].textContent='Hello';
 
-let odd = document.querySelectorAll('li:nth-child(odd)');
-let even = document.querySelectorAll('li:nth-child(even')
-for(let i=0;i<odd.length;i++)
-{
-    odd[i].style.backgroundColor='grey';
-    even[i].style.backgroundColor='yellow';
+// let odd = document.querySelectorAll('li:nth-child(odd)');
+// let even = document.querySelectorAll('li:nth-child(even')
+// for(let i=0;i<odd.length;i++)
+// {
+//     odd[i].style.backgroundColor='grey';
+//     even[i].style.backgroundColor='yellow';
+// }
+
+
+// Traversing the DOM.....
+
+// let itemList = document.querySelector('#items');
+// Parent Node...
+// itemList.parentNode.style.backgroundColor='red';
+// itemList.parentNode.parentNode.style.background='yellow';
+
+// Parent Element...
+// itemList.parentElement.style.backgroundColor='red';
+// itemList.parentNode.parentNode.style.background='yellow';
+
+// Child Nodes.... also include line breaks and gaps.....
+//console.log(itemList.childNodes);
+
+// Children Nodes...
+// console.log(itemList.children);
+// console.log(itemList.children[1]);
+// itemList.children[1].style.background='orange';
+
+// FirstChild....also include line breaks and gaps...
+
+//console.log(itemList.firstChild);
+
+//First Element Child...
+
+//console.log(itemList.firstElementChild);
+
+// Siblings.....
+// console.log(itemList.previousSibling);
+// console.log(itemList.nextElementSibling);
+
+// Create a div....
+// let newDiv = document.createElement('div');
+
+// Add Class...
+// newDiv.className='Hello';
+// newDiv.id='Hello1';
+// newDiv.setAttribute('title','Hello Div');
+// console.log(newDiv);
+
+// Create Text Node....
+//let newDivText = document.createTextNode('Hello I am aviral');
+
+//Add Tetx Nod eto div....
+//newDiv.append(newDivText);
+//console.log(newDiv);
+
+// Inserting element in the DOM....
+
+// let container = document.querySelector('header .container');
+// let h1 = document.querySelector('header h1');
+// newDiv.style.fontSize='30px';
+// container.insertBefore(newDiv,h1);
+
+let form = document.getElementById('addForm');
+let itemList = document.getElementById('items');
+
+// Form Submit event.....
+form.addEventListener('submit',addItem);
+
+// Form delete item event....
+itemList.addEventListener('click',removeItem);
+
+// Add Item...
+function addItem(e){
+    e.preventDefault();
+
+    // Get input value....
+    let newItem = document.getElementById('item').value;
+    // Create new li element...
+    let li = document.createElement('li');
+    li.className='list-group-item';
+    // adding text to li..
+    li.appendChild(document.createTextNode(newItem));
+    // Adding element to the item list...
+    itemList.appendChild(li);
+
+    // Create Delete Button...
+    let del = document.createElement('button');
+    del.className='btn btn-danger btn-sm float-right delete'
+    del.appendChild(document.createTextNode('X'));
+    // Append del button to list element...
+    li.append(del);
+    
+    
+}
+
+function removeItem(e){
+    if(e.target.classList.contains('delete')){
+        if(confirm('Are you sure?'))
+        {
+            let li = e.target.parentElement;
+            itemList.removeChild(li);
+        }
+    }
 }
